@@ -1,5 +1,5 @@
 @Library('deadly-viper-library')
-import org.contoso.We
+import org.contoso.WesterosFolks
 
 import hudson.model.*
 def env = build.getEnvironment()
