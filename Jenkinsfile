@@ -8,9 +8,9 @@ node {
             sh 'env | sort'
             // https://issues.jenkins-ci.org/browse/JENKINS-46285
             sh "echo ${env.BUILD_URL}"
-            sh "echo ${env.BUILD_NUMBER}"
-            sh "echo ${env.GIT_BRANCH}"
-            sh "echo ${env.GIT_COMMIT}"
+            // sh "echo ${env.BUILD_NUMBER}"
+            // sh "echo ${env.GIT_BRANCH}"
+            // sh "echo ${env.GIT_COMMIT}"
             // sh "echo ${env.GIT_COMMIT}[0..6]"
             // sh "echo ${env.GIT_PREVIOUS_COMMIT}"
             // sh "echo ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
