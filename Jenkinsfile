@@ -7,7 +7,6 @@ node {
             abortPreviousBuilds()
             sh 'env | sort'
             sleep 42
-
         }
         catch (e) {
             echo 'Uh oh! What happened?'
