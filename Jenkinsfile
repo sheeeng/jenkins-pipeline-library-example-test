@@ -1,6 +1,7 @@
 @Library('deadly-viper-library')
 import org.contoso.WesterosFolks
 
+//https://stackoverflow.com/a/48421660/4763512
 def jobs = ["JobA", "JobB", "JobC"]
 
 def parallelStagesMap = jobs.collectEntries {
