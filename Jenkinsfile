@@ -6,11 +6,12 @@ node {
         try {
             abortPreviousBuilds()
             sh 'env | sort'
-            sh 'echo ${GIT_BRANCH}'
-            sh 'echo ${GIT_COMMIT}'
-            sh 'echo ${GIT_COMMIT}[0..6]'
-            sh 'echo ${GIT_PREVIOUS_COMMIT}'
-            sh 'echo ${GIT_PREVIOUS_SUCCESSFUL_COMMIT}'
+            sh "echo ${env.BRANCH_NAME}"
+            // sh 'echo ${env.GIT_BRANCH}'
+            // sh 'echo ${env.GIT_COMMIT}'
+            // sh 'echo ${env.GIT_COMMIT}[0..6]'
+            // sh 'echo ${env.GIT_PREVIOUS_COMMIT}'
+            // sh 'echo ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}'
             sleep 42
         }
         catch (e) {
