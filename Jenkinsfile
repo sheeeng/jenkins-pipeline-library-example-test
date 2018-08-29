@@ -1,5 +1,4 @@
 @Library('deadly-viper-library')
-import org.contoso.WesterosFolks
 
 node {
     stage('Main') {
