@@ -1,22 +1,21 @@
 @Library('deadly-viper-library')
 import org.contoso.WesterosFolks
 
+def env = build.getEnvironment()
+def gitBranch = env['GIT_BRANCH']
+def gitCommit = env['GIT_COMMIT']
+def shortGitCommit = gitCommit[0..6]
+def gitPreviousCommit = env['GIT_PREVIOUS_COMMIT']
+def gitPreviousSuccessfulCommit = env['GIT_PREVIOUS_SUCCESSFUL_COMMIT']
+
 node {
     stage('Main') {
         try {
-            def env = build.getEnvironment()
-            def gitBranch = env['GIT_BRANCH']
             sh 'echo ${gitBranch}'
-            def gitCommit = env['GIT_COMMIT']
             sh 'echo ${gitCommit}'
-            def shortGitCommit = gitCommit[0..6]
             sh 'echo ${shortGitCommit}'
-            def gitPreviousCommit = env['GIT_PREVIOUS_COMMIT']
             sh 'echo ${gitPreviousCommit}'
-            def gitPreviousSuccessfulCommit = env['GIT_PREVIOUS_SUCCESSFUL_COMMIT']
             sh 'echo ${gitPreviousSuccessfulCommit}'
-            
- 
             abortPreviousBuilds()
             sh 'env | sort'
             sleep 42
