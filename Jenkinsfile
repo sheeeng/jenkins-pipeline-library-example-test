@@ -1,4 +1,4 @@
-i@Library('deadly-viper-library')
+@Library('deadly-viper-library')
 import org.contoso.WesterosFolks
 
 def jobs = ["JobA", "JobB", "JobC"]
