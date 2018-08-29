@@ -11,7 +11,7 @@ def parallelStagesMap = jobs.collectEntries {
 def generateStage(job) {
     return {
         stage("stage: ${job}") {
-            echo "\$\{job\}: ${job}."
+            echo "\044\{job\}: ${job}."
             sh script: "sleep 8"
         }
     }
