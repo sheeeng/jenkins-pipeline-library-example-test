@@ -3,14 +3,6 @@ import org.contoso.SimpleRandom
 
 node {
     stage('Abort') {
-        when {
-            anyOf {  // change `anyOf` to `not` to negate the condition
-                branch 'master'
-                branch 'develop'
-                branch 'release-*'
-                environment name: 'ABORT_PREVIOUS_BUILDS', value: 'true'
-            }
-        }
         steps {
             println "Aborting previous builds if exists."
             abortPreviousBuilds()
