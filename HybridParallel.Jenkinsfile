@@ -1,6 +1,3 @@
-@Library('deadly-viper-library')
-import org.contoso.WesterosFolks
-
 //https://stackoverflow.com/a/48421660/4763512
 def jobs = ["JobA", "JobB", "JobC"]
 
@@ -24,26 +21,6 @@ pipeline {
         stage('declarative non-parallel stage') {
             steps {
                 echo 'This declarative non-parallel stage will be executed first.'
-            }
-        }
-
-        stage('scripted in declarative stage') {
-            steps {
-                script {
-                    node {
-                        stage('Main') {
-                            try {
-                                abortPreviousBuilds()
-                                sh 'env | sort'
-                                sleep 42
-                            }
-                            catch (e) {
-                                echo 'Uh oh! What happened?'
-                                throw e
-                            }
-                        }
-                    }
-                }
             }
         }
 

@@ -1,52 +1,37 @@
-@Library('deadly-viper-library')
-import org.contoso.SimpleRandom
+//https://stackoverflow.com/a/48421660/4763512
+def jobs = ["JobA", "JobB", "JobC"]
+
+def parallelStagesMap = jobs.collectEntries {
+    ["${it}" : generateStage(it)]
+}
+
+def generateStage(job) {
+    return {
+        stage("stage: ${job}") {
+            echo "\044\\{job\\}: ${job}."
+            sh script: "sleep 8"
+        }
+    }
+}
 
 pipeline {
     agent any
-    environment {
-        ABORT_PREVIOUS_BUILDS = 'true'
-    }
+
     stages {
-        stage('Abort') {
-            when {  // https://jenkins.io/doc/book/pipeline/syntax/#when
-                beforeAgent true
-                not {  // Nested when condition "not" requires exactly 1 child condition.
-                    branch 'master'  // Note that this only works on a multibranch Pipeline. ¯\_(ツ)_/¯
-                    // environment name: 'ABORT_PREVIOUS_BUILDS', value: 'true'
-                }
-            }
+        stage('declarative non-parallel stage') {
             steps {
-                println "Aborting previous builds if exists."
-                abortPreviousBuilds()
+                echo 'This declarative non-parallel stage will be executed first.'
             }
         }
-        stage('Main') {
+
+        stage('scripted in declarative parallel stage') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'master') {
-                        echo 'Master branch detected.'
-                    } else if (env.BRANCH_NAME == 'development') {
-                        echo 'Development branch detected.'
-                    } else {
-                        echo 'Non-master branch detected.'
-                        abortPreviousBuilds()
-                    }
+                    parallel parallelStagesMap
                 }
-                getBuildCauses()
-                sh 'env | sort'
-                // https://issues.jenkins-ci.org/browse/JENKINS-46285
-                println '\${BUILD_NUMBER}:'
-                sh "echo ${env.BUILD_NUMBER}"
-                println '\${GIT_BRANCH}:'
-                sh "echo ${env.GIT_BRANCH}"
-                println '\${GIT_COMMIT}:'
-                sh "echo ${env.GIT_COMMIT}"
-                println '\${GIT_PREVIOUS_COMMIT}:'
-                sh "echo ${env.GIT_PREVIOUS_COMMIT}"
-                println '\${GIT_PREVIOUS_SUCCESSFUL_COMMIT}:'
-                sh "echo ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
-                sleep 42
             }
         }
     }
 }
+
+
