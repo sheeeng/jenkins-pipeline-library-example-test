@@ -23,14 +23,14 @@ pipeline {
         stage('Main') {
             steps {
                 script {
+                    def gitCommit = env.GIT_COMMIT
+                    def shortGitCommit = gitCommit[0..6]
+                    sh "echo ${shortGitCommit}"
+
                     def branchName = env.GIT_BRANCH
                     if (branchName.startsWith('origin/mast')) {
                         sh 'echo Filtered branch detected.'
                     }
-
-                    def gitCommit = env.GIT_COMMIT
-                    def shortGitCommit = gitCommit[0..6]
-                    sh "echo ${shortGitCommit}"
 
                     if (env.GIT_BRANCH == 'origin/master' || env.GIT_BRANCH == 'origin/development') {
                         echo 'Allowed branch detected.'
