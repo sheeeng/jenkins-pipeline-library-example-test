@@ -4,7 +4,7 @@ import org.contoso.SimpleRandom
 pipeline {
     agent any
     environment {
-        // ABORT_PREVIOUS_BUILDS = 'true'
+        ABORT_PREVIOUS_BUILDS = 'true'
     }
     stages {
         stage('Abort') {
