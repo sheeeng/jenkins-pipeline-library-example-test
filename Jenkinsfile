@@ -28,7 +28,8 @@ pipeline {
                         sh 'echo Filtered branch detected.'
                     }
 
-                    def shortGitCommit = env.GIT_COMMIT
+                    def gitCommit = env.GIT_COMMIT
+                    def shortGitCommit = gitCommit[0..6]
                     sh "echo ${shortGitCommit}"
 
                     if (env.GIT_BRANCH == 'origin/master' || env.GIT_BRANCH == 'origin/development') {
