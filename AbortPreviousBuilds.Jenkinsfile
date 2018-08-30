@@ -10,7 +10,7 @@ pipeline {
         stage('Abort') {
             when {  // https://jenkins.io/doc/book/pipeline/syntax/#when
                 beforeAgent true
-                not {  // Nested when condition "not" requires exactly 1 child condition.
+                anyOf {  // Nested when condition "not" requires exactly 1 child condition.
                     branch 'master'  // Note that this only works on a multibranch Pipeline. ¯\_(ツ)_/¯
                     // environment name: 'ABORT_PREVIOUS_BUILDS', value: 'true'
                 }
@@ -23,9 +23,9 @@ pipeline {
         stage('Main') {
             steps {
                 script {
-                    if (env.BRANCH_NAME == 'master') {
+                    if (env.GIT_BRANCH == 'origin/master') {
                         echo 'Master branch detected.'
-                    } else if (env.BRANCH_NAME == 'developmentJenkinsfile') {
+                    } else if (env.GIT_BRANCH == 'origin/development') {
                         echo 'Development branch detected.'
                     } else {
                         echo 'Non-master branch detected.'
