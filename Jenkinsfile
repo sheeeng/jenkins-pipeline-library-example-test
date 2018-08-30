@@ -9,7 +9,7 @@ def generateStage(job) {
     return {
         stage("stage: ${job}") {
             node("${job}") {
-                echo "\044\\{job\\}: ${job}."
+                echo "\044\{job\}: ${job}."
                 sh script: "sleep 8"
             }
         }
