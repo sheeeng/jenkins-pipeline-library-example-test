@@ -23,9 +23,10 @@ pipeline {
         stage('Main') {
             steps {
                 script {
-                    sh 'echo env.GIT_BRANCH'
-
-
+                    def branchName = env.GIT_BRANCH
+                    if (branchName.startsWith('origin/mast') {
+                        sh 'echo Filtered branch detected.'
+                    }
 
                     if (env.GIT_BRANCH == 'origin/master' || env.GIT_BRANCH == 'origin/development') {
                         echo 'Allowed branch detected.'
