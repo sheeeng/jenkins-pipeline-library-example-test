@@ -4,7 +4,6 @@ import org.contoso.SimpleRandom
 node {
     stage('Abort') {
         when {
-            branch 'production'
             anyOf {  // change `anyOf` to `not` to negate the condition
                 branch 'master'
                 branch 'develop'
