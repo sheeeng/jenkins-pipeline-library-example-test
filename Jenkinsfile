@@ -25,8 +25,11 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'master') {
                         echo 'Master branch detected.'
+                    } else if (env.BRANCH_NAME == 'development') {
+                        echo 'Development branch detected.'
                     } else {
                         echo 'Non-master branch detected.'
+                        abortPreviousBuilds()
                     }
                 }
                 getBuildCauses()
