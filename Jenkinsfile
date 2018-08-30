@@ -4,7 +4,6 @@ import org.contoso.WesterosFolks
 node {
     stage('Main') {
         try {
-            getBuildsInformation()
             getBuildCauses()
             abortPreviousBuilds()
             sh 'env | sort'
