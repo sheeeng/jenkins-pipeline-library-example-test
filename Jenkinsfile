@@ -9,7 +9,7 @@ def generateStage(job) {
     return {
         stage("stage: ${job}") {
             node("${job}") {
-                echo "Message from the generated ${job} stage."
+                echo "Message from the generated ${job} scripted parallel stage."
                 sh script: "sleep 8"
             }
         }
@@ -20,13 +20,13 @@ pipeline {
     agent any
 
     stages {
-        stage('declarative non-parallel stage') {
+        stage('Sequential') {
             steps {
-                echo 'This declarative non-parallel stage will be executed first.'
+                echo 'Message from the declarative non-parallel stage.'
             }
         }
 
-        stage('scripted in declarative parallel stage') {
+        stage('Parallel') {
             steps {
                 script {
                     parallel parallelStagesMap
