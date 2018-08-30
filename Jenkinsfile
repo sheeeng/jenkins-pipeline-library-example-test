@@ -4,7 +4,6 @@ import org.contoso.WesterosFolks
 node {
     stage('Main') {
         try {
-            getTriggerCauses()
             abortPreviousBuilds()
             sh 'env | sort'
             // https://issues.jenkins-ci.org/browse/JENKINS-46285
