@@ -28,6 +28,9 @@ pipeline {
                         sh 'echo Filtered branch detected.'
                     }
 
+                    def shortGitCommit = env.GIT_COMMIT
+                    sh "echo ${shortGitCommit}"
+
                     if (env.GIT_BRANCH == 'origin/master' || env.GIT_BRANCH == 'origin/development') {
                         echo 'Allowed branch detected.'
                         abortPreviousBuilds()

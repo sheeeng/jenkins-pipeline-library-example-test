@@ -23,15 +23,17 @@ pipeline {
         stage('Main') {
             steps {
                 script {
-                    sh 'echo env.GIT_BRANCH'
-
                     def branchName = env.GIT_BRANCH
-                    if (branchName.startsWith('origin/mast') {
+                    if (branchName.startsWith('origin/mast')) {
                         sh 'echo Filtered branch detected.'
                     }
 
+                    def shortGitCommit = env.GIT_COMMIT
+                    sh "echo ${shortGitCommit}"
+
                     if (env.GIT_BRANCH == 'origin/master' || env.GIT_BRANCH == 'origin/development') {
                         echo 'Allowed branch detected.'
+                        abortPreviousBuilds()
                     } else {
                         echo 'Blocked concurrent branch detected.'
                         abortPreviousBuilds()
