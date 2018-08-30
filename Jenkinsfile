@@ -1,5 +1,5 @@
 @Library('deadly-viper-library')
-import org.contoso.*
+import org.contoso.SimpleRandom
 
 node {
     stage('Main') {
