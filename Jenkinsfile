@@ -25,10 +25,11 @@ pipeline {
                 script {
                     sh 'echo env.GIT_BRANCH'
 
-                    
+
 
                     if (env.GIT_BRANCH == 'origin/master' || env.GIT_BRANCH == 'origin/development') {
                         echo 'Allowed branch detected.'
+                        abortPreviousBuilds()
                     } else {
                         echo 'Blocked concurrent branch detected.'
                         abortPreviousBuilds()
