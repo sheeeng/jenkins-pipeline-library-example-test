@@ -34,21 +34,21 @@ pipeline {
     }
    }
   }
-  stage('Cameras') {
+
+  stage('Parallel') {
    failFast true
-   stage('Parallel') {
-    steps {
-     script {
-      parallel parallelStagesMap
-     }
+   steps {
+    script {
+     parallel parallelStagesMap
     }
    }
   }
  }
+}
 
- post {
-  always {
-   deleteDir()
-  }
+post {
+ always {
+  deleteDir()
  }
+}
 }
