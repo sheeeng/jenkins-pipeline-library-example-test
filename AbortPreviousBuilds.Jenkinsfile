@@ -23,12 +23,17 @@ pipeline {
         stage('Main') {
             steps {
                 script {
-                    if (env.GIT_BRANCH == 'origin/master') {
-                        echo 'Master branch detected.'
-                    } else if (env.GIT_BRANCH == 'origin/development') {
-                        echo 'Development branch detected.'
+                    sh 'echo env.GIT_BRANCH'
+
+                    def branchName = env.GIT_BRANCH
+                    if (branchName.startsWith('origin/mast') {
+                        sh 'echo Filtered branch detected.'
+                    }
+
+                    if (env.GIT_BRANCH == 'origin/master' || env.GIT_BRANCH == 'origin/development') {
+                        echo 'Allowed branch detected.'
                     } else {
-                        echo 'Non-master branch detected.'
+                        echo 'Blocked concurrent branch detected.'
                         abortPreviousBuilds()
                     }
                 }
