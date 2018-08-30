@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     def branchName = env.GIT_BRANCH
-                    if (branchName.startsWith('origin/mast') {
+                    if (branchName.startsWith('origin/mast')) {
                         sh 'echo Filtered branch detected.'
                     }
 
