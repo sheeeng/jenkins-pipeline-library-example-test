@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-@Library('abort-previous-builds-library')
+@Library('abort-previous-builds-library') _
 
 pipeline {
     agent any
@@ -10,8 +10,8 @@ pipeline {
                 beforeAgent true
                 not {  // Nested when condition "not" requires exactly 1 child condition.
                     anyOf {
-                        branch 'master';  // Note that this only works on a multibranch Pipeline. ¯\_(ツ)_/¯
-                        branch 'develop';  // Note that this only works on a multibranch Pipeline. ¯\_(ツ)_/¯
+                        branch 'origin/master';  // Note that this only works on a multibranch Pipeline. ¯\_(ツ)_/¯
+                        branch 'origin/develop';  // Note that this only works on a multibranch Pipeline. ¯\_(ツ)_/¯
                     }
                 }
             }
