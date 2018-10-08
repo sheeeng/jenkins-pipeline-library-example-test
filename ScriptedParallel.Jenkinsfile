@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 //https://stackoverflow.com/a/48421660/4763512
 def jobs = ["JobA", "JobB", "JobC"]
 

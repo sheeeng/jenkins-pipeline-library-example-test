@@ -1,18 +1,18 @@
-@Library('deadly-viper-library')
-import org.contoso.SimpleRandom
+#!/usr/bin/env groovy
+
+@Library('abort-previous-builds-library')
 
 pipeline {
     agent any
-    environment {
-        ABORT_PREVIOUS_BUILDS = 'true'
-    }
     stages {
         stage('Abort') {
             when {  // https://jenkins.io/doc/book/pipeline/syntax/#when
                 beforeAgent true
-                anyOf {  // Nested when condition "not" requires exactly 1 child condition.
-                    branch 'master'  // Note that this only works on a multibranch Pipeline. ¯\_(ツ)_/¯
-                    // environment name: 'ABORT_PREVIOUS_BUILDS', value: 'true'
+                not {  // Nested when condition "not" requires exactly 1 child condition.
+                    anyOf {
+                        branch 'master';  // Note that this only works on a multibranch Pipeline. ¯\_(ツ)_/¯
+                        branch 'develop';  // Note that this only works on a multibranch Pipeline. ¯\_(ツ)_/¯
+                    }
                 }
             }
             steps {
@@ -20,7 +20,7 @@ pipeline {
                 abortPreviousBuilds()
             }
         }
-        stage('Main') {
+        stage('Build') {
             steps {
                 script {
                     def gitCommit = env.GIT_COMMIT
@@ -34,13 +34,12 @@ pipeline {
 
                     if (env.GIT_BRANCH == 'origin/master' || env.GIT_BRANCH == 'origin/development') {
                         echo 'Allowed branch detected.'
-                        abortPreviousBuilds()
+                        // abortPreviousBuilds()
                     } else {
                         echo 'Blocked concurrent branch detected.'
                         abortPreviousBuilds()
                     }
                 }
-                getBuildCauses()
                 sh 'env | sort'
                 // https://issues.jenkins-ci.org/browse/JENKINS-46285
                 println '\${BUILD_NUMBER}:'

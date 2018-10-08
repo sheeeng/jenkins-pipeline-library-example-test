@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def jobs = ["JobA", "JobB", "JobC"]
 
 def parallelStagesMap = jobs.collectEntries {

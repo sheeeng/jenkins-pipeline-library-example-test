@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 @Library('deadly-viper-library')
 import org.contoso.WesterosFolks
 
